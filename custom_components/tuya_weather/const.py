@@ -30,16 +30,16 @@ TEMP_DIVIDER = 10
 # slot : position dans les chaînes all_temp_calibration / all_hum_calibration
 # (0 = station, 1 = sub1, ... 9 = sub9). Les chaînes ont 10 valeurs.
 SUBDEVICES = [
-    {"key": "", "name": "Station météo (salon)", "has_battery": False, "battery_index": None, "slot": 0},
-    {"key": "sub1", "name": "Chambre enfants", "has_battery": True, "battery_index": 1, "slot": 1},
-    {"key": "sub2", "name": "Ma chambre", "has_battery": True, "battery_index": 2, "slot": 2},
-    {"key": "sub3", "name": "Jardin", "has_battery": True, "battery_index": 3, "slot": 3},
-    {"key": "sub4", "name": "Capteur 4", "has_battery": True, "battery_index": 4, "slot": 4},
-    {"key": "sub5", "name": "Capteur 5", "has_battery": True, "battery_index": 5, "slot": 5},
-    {"key": "sub6", "name": "Capteur 6", "has_battery": True, "battery_index": 6, "slot": 6},
-    {"key": "sub7", "name": "Capteur 7", "has_battery": True, "battery_index": 7, "slot": 7},
-    {"key": "sub8", "name": "Capteur 8", "has_battery": True, "battery_index": 8, "slot": 8},
-    {"key": "sub9", "name": "Capteur 9", "has_battery": True, "battery_index": 9, "slot": 9},
+    {"key": "", "name": "Station météo", "has_battery": False, "battery_index": None, "slot": 0},
+    {"key": "sub1", "name": "Station météo – Capteur 1", "has_battery": True, "battery_index": 1, "slot": 1},
+    {"key": "sub2", "name": "Station météo – Capteur 2", "has_battery": True, "battery_index": 2, "slot": 2},
+    {"key": "sub3", "name": "Station météo – Capteur 3", "has_battery": True, "battery_index": 3, "slot": 3},
+    {"key": "sub4", "name": "Station météo – Capteur 4", "has_battery": True, "battery_index": 4, "slot": 4},
+    {"key": "sub5", "name": "Station météo – Capteur 5", "has_battery": True, "battery_index": 5, "slot": 5},
+    {"key": "sub6", "name": "Station météo – Capteur 6", "has_battery": True, "battery_index": 6, "slot": 6},
+    {"key": "sub7", "name": "Station météo – Capteur 7", "has_battery": True, "battery_index": 7, "slot": 7},
+    {"key": "sub8", "name": "Station météo – Capteur 8", "has_battery": True, "battery_index": 8, "slot": 8},
+    {"key": "sub9", "name": "Station météo – Capteur 9", "has_battery": True, "battery_index": 9, "slot": 9},
 ]
 
 # Codes des chaînes de calibration (10 valeurs séparées par des virgules).
