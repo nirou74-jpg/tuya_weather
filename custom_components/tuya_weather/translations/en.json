@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Tuya Weather",
+        "description": "Saisissez vos identifiants Tuya IoT Platform et l'ID de votre station météo.",
+        "data": {
+          "client_id": "Client ID (Access ID)",
+          "secret_key": "Secret Key (Access Secret)",
+          "device_id": "Device ID de la station",
+          "region": "Région du datacenter Tuya"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Client ID ou Secret Key invalide.",
+      "cannot_connect": "Impossible de joindre l'API Tuya ou device introuvable.",
+      "unknown": "Erreur inattendue."
+    },
+    "abort": {
+      "already_configured": "Cette station est déjà configurée."
+    }
+  }
+}
