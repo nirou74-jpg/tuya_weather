@@ -1,6 +1,7 @@
 """The Tuya Weather integration (read-only)."""
 from __future__ import annotations
 
+import asyncio
 import logging
 from datetime import timedelta
 
@@ -51,6 +52,10 @@ class TuyaWeatherCoordinator(DataUpdateCoordinator):
 
     async def async_send_commands(self, commands: list[dict]) -> None:
         await self.client.send_commands(self.device_id, commands)
+        # L'API Cloud Tuya ne reflète pas la commande instantanément dans le
+        # status : on laisse un court délai de propagation avant de relire,
+        # sinon le refresh renvoie l'ancienne valeur.
+        await asyncio.sleep(2)
         await self.async_request_refresh()
 
 

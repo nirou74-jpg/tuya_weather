@@ -1,14 +1,14 @@
 {
   "domain": "tuya_weather",
   "name": "Tuya Weather",
-  "codeowners": ["@nirou74-jpg"],
+  "codeowners": ["@VOTRE_PSEUDO"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/nirou74-jpg/tuya_weather",
+  "documentation": "https://github.com/VOTRE_PSEUDO/tuya_weather",
   "homeassistant": "2024.1.0",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/nirou74-jpg/tuya_weather/issues",
+  "issue_tracker": "https://github.com/VOTRE_PSEUDO/tuya_weather/issues",
   "requirements": [],
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
