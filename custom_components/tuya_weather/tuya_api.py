@@ -37,6 +37,7 @@ class TuyaClient:
         self._client_id = client_id
         self._secret = secret_key
         self._access_token: str | None = None
+        self._refresh_token: str | None = None
         self._token_expire_at: float = 0.0
 
     # ------------------------------------------------------------------ #
@@ -91,7 +92,20 @@ class TuyaClient:
     async def _ensure_token(self) -> None:
         if self._access_token and time.time() < self._token_expire_at - 60:
             return
+        # Token expiré ou absent : essayer le refresh d'abord.
+        if self._refresh_token:
+            try:
+                await self._refresh_token_call()
+                return
+            except TuyaApiError:
+                pass  # Refresh échoué → on retombe sur grant_type=1
         await self._fetch_token()
+
+    def _store_token_result(self, result: dict) -> None:
+        """Mémorise access_token, refresh_token et expiration."""
+        self._access_token = result["access_token"]
+        self._refresh_token = result.get("refresh_token")
+        self._token_expire_at = time.time() + int(result.get("expire_time", 7200))
 
     async def _fetch_token(self) -> None:
         path = "/v1.0/token?grant_type=1"
@@ -105,10 +119,26 @@ class TuyaClient:
             if code in (1004, 1010, 1013, 1106):
                 raise TuyaAuthError(f"Tuya auth failed: {msg} (code {code})")
             raise TuyaApiError(f"Token error: {msg} (code {code})")
-        result = data["result"]
-        self._access_token = result["access_token"]
-        # expire_time est en secondes
-        self._token_expire_at = time.time() + int(result.get("expire_time", 7200))
+        self._store_token_result(data["result"])
+
+    async def _refresh_token_call(self) -> None:
+        """Renouvelle le token via le refresh_token.
+
+        La signature se construit sans access_token (with_token=False),
+        exactement comme pour grant_type=1.
+        Le refresh_token ne prend effet qu'une seule fois ; la réponse
+        fournit un nouveau refresh_token à mémoriser.
+        """
+        path = f"/v1.0/token/{self._refresh_token}"
+        headers = self._build_headers("GET", path, with_token=False)
+        url = self._base + path
+        async with self._session.get(url, headers=headers) as resp:
+            data = await resp.json()
+        if not data.get("success"):
+            code = data.get("code")
+            msg = data.get("msg", "unknown")
+            raise TuyaApiError(f"Refresh token error: {msg} (code {code})")
+        self._store_token_result(data["result"])
 
     # ------------------------------------------------------------------ #
     # Requête générique authentifiée
